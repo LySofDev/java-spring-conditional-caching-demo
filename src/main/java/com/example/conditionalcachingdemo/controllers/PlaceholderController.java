@@ -19,12 +19,12 @@ class PlaceholderController {
     private final PlaceholderService placeholderService;
 
     @GetMapping("/{name}")
-    public JSONArray getCollection(@PathVariable String name) throws InterruptedException {
+    public JSONArray getCollection(@PathVariable String name) {
         return placeholderService.getCollection(name);
     }
 
     @GetMapping("/{name}/{id}")
-    public JSONObject getRecord(@PathVariable String name, @PathVariable int id) throws InterruptedException {
+    public JSONObject getRecord(@PathVariable String name, @PathVariable int id) {
         return placeholderService.getRecord(name, id);
     }
 }
