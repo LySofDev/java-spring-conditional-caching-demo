@@ -24,23 +24,23 @@ class PlaceholderServiceImpl implements PlaceholderService {
     private final String apiUrl;
 
     @Override
-    public JSONArray getCollection(String name) throws InterruptedException {
+    public JSONArray getCollection(String name) {
         try {
             JSONArray collection = restTemplate.getForObject(collectionUrl(name), JSONArray.class);
             Thread.sleep(3000); // Simulating a slow network.
             return collection;
-        } catch (HttpClientErrorException.NotFound e) {
+        } catch (HttpClientErrorException.NotFound | InterruptedException e) {
             throw new CollectionNotFoundException();
         }
     }
 
     @Override
-    public JSONObject getRecord(String name, int id) throws InterruptedException {
+    public JSONObject getRecord(String name, int id) {
         try {
             JSONObject record = restTemplate.getForObject(recordUrl(name, id), JSONObject.class);
             Thread.sleep(3000); // Simulating a slow network.
             return record;
-        } catch (HttpClientErrorException.NotFound e) {
+        } catch (HttpClientErrorException.NotFound | InterruptedException e) {
             throw new RecordNotFoundException();
         }
     }
