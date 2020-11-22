@@ -22,15 +22,15 @@ class PlaceholderController {
 
     private final PlaceholderService placeholderService;
 
-    @GetMapping("/{name}")
-    @Cacheable(value = "collections", condition = "#cacheables.contains(#name)")
-    public JSONArray getCollection(@PathVariable String name, @Value("${api.cacheables}") List<String> cacheables) {
-        return placeholderService.getCollection(name);
-    }
+@GetMapping("/{name}")
+@Cacheable(value = "collections", key = "#name", condition = "#cacheables.contains(#name)")
+public JSONArray getCollection(@PathVariable String name, @Value("${api.cacheables}") List<String> cacheables) {
+    return placeholderService.getCollection(name);
+}
 
-    @GetMapping("/{name}/{id}")
-    @Cacheable(value = "records", key = "#name + #id", condition = "#cacheables.contains(#name)")
-    public JSONObject getRecord(@PathVariable String name, @PathVariable int id, @Value("${api.cacheables}") List<String> cacheables) {
-        return placeholderService.getRecord(name, id);
-    }
+@GetMapping("/{name}/{id}")
+@Cacheable(value = "records", key = "#name + #id", condition = "#cacheables.contains(#name)")
+public JSONObject getRecord(@PathVariable String name, @PathVariable int id, @Value("${api.cacheables}") List<String> cacheables) {
+    return placeholderService.getRecord(name, id);
+}
 }
